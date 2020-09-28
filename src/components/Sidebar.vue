@@ -1,4 +1,4 @@
-dashboard<template>
+<template>
   <div class="sidebar">
     <!-- <h3 class="lead text-left">Covid Dashboard</h3> -->
     <div class="container text-left">
@@ -76,7 +76,7 @@ dashboard<template>
             name=""
             class="symptoms"
             :id="symptom._id"
-            v-model="queryObject.syms"
+            v-model="queryObject.symptoms"
             :value="symptom._id"
             @change="changeStatus"
           />
@@ -103,7 +103,7 @@ export default {
       queryObject: {
         start: moment.utc().format("YYYY-MM-DD"),
         end: moment.utc().add(1, "days").format("YYYY-MM-DD"),
-        syms: [],
+        symptoms: [],
       },
       calendars: false,
       searchBtn: true,
@@ -113,11 +113,11 @@ export default {
   mounted() {
     this.$store.dispatch("getSymptoms");
   },
-  watch: {
-    searchBtn(old, newV) {
-      console.log(old, newV);
-    },
-  },
+  //   watch: {
+  //     searchBtn(old, newV) {
+  //       console.log(old, newV);
+  //     },
+  //   },
   computed: {
     ...mapGetters({
       symptoms: "getSymptoms",
