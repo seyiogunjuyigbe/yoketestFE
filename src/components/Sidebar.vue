@@ -51,6 +51,8 @@ dashboard<template>
             name=""
             id=""
             v-model="queryObject.start"
+            min="2020-03-01"
+            max="2020-05-31"
           />
         </div>
         <div class="calendar mb-2">
@@ -61,6 +63,8 @@ dashboard<template>
             name=""
             id=""
             v-model="queryObject.end"
+            min="2020-03-01"
+            max="2020-05-31"
           />
         </div>
       </div>
