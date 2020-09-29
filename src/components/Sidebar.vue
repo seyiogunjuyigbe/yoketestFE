@@ -48,7 +48,7 @@
             class="form-control"
             type="date"
             name=""
-            id=""
+            id="calStart"
             v-model="queryObject.start"
             min="2020-03-01"
             max="2020-05-31"
@@ -60,7 +60,7 @@
             class="form-control"
             type="date"
             name=""
-            id=""
+            id="calEnd"
             v-model="queryObject.end"
             min="2020-03-01"
             max="2020-05-31"
@@ -134,6 +134,19 @@ export default {
   },
   methods: {
     fetchResult() {
+      if (
+        moment(this.queryObject.start).isAfter(moment(this.queryObject.end)) ||
+        moment(this.queryObject.start).isBefore(moment("2020-03-01")) ||
+        moment(this.queryObject.start).isAfter(moment("2020-05-31")) ||
+        moment(this.queryObject.end).isBefore(moment("2020-03-01")) ||
+        moment(this.queryObject.end).isAfter(moment("2020-05-31"))
+      ) {
+        alert(
+          "Wrong Date Selection: Dates mut be between  March 1st 2020 and May 31st 2020"
+        );
+        return;
+      }
+
       this.$store.dispatch("fetchSearchResults", this.queryObject);
     },
     changeStatus(e) {
@@ -182,6 +195,7 @@ export default {
     },
   },
 };
+// document.querySelector("calStart")
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
