@@ -67,28 +67,37 @@
           />
         </div>
       </div>
-      <p>Symptom(s)</p>
-      <form @submit.prevent="fetchResult">
-        <div v-for="(symptom, i) in symptoms" :key="i">
-          <input
-            type="checkbox"
-            name=""
-            class="symptoms"
-            :id="symptom._id"
-            v-model="queryObject.symptoms"
-            :value="symptom._id"
-            @change="changeStatus"
-          />
-          <label :for="symptom._id" class="ml-2">{{ symptom.name }}</label>
-        </div>
-        <button
-          type="submit"
-          :disabled="searchBtn"
-          class="btn btn-sm btn-danger"
-        >
-          Search >>
-        </button>
-      </form>
+      <div
+        v-if="loadingSymptoms"
+        class="spinner-border text-secondary"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div v-else>
+        <p>Symptom(s)</p>
+        <form @submit.prevent="fetchResult">
+          <div v-for="(symptom, i) in symptoms" :key="i">
+            <input
+              type="checkbox"
+              name=""
+              class="symptoms"
+              :id="symptom._id"
+              v-model="queryObject.symptoms"
+              :value="symptom._id"
+              @change="changeStatus"
+            />
+            <label :for="symptom._id" class="ml-2">{{ symptom.name }}</label>
+          </div>
+          <button
+            type="submit"
+            :disabled="searchBtn"
+            class="btn btn-sm btn-danger"
+          >
+            Search >>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -120,6 +129,7 @@ export default {
   computed: {
     ...mapGetters({
       symptoms: "getSymptoms",
+      loadingSymptoms: "getLoadingSymptoms",
     }),
   },
   methods: {
@@ -128,9 +138,7 @@ export default {
     },
     changeStatus(e) {
       let symptoms = document.querySelectorAll(".symptoms");
-
       symptoms = Array.from(symptoms);
-      console.log(symptoms);
       let checkedValue = symptoms.find((el) => el.checked);
       checkedValue ? (this.searchBtn = false) : (this.searchBtn = true);
     },
@@ -176,21 +184,21 @@ export default {
 };
 </script>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 .sidebar {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.8em;
   border-right: 1px solid #f3f3f3;
 }
-form{
+form {
   width: 90%;
   margin-right: 0;
 }
-label{
+label {
   text-overflow: clip;
 }
-.btn-danger{
+.btn-danger {
   padding: 1em 4em;
   background-color: red !important;
 }

@@ -15,6 +15,7 @@ export default {
         lat: "",
         long: "",
       },
+      map: null,
     };
   },
   computed: {
@@ -22,28 +23,31 @@ export default {
       results: "getSearchResults",
     }),
   },
+  watch: {
+    results(oldvalue, newValue) {
+      if (oldvalue !== newValue) {
+        this.setMarkers();
+      }
+    },
+  },
   mounted() {
     mapboxgl.accessToken = this.accessToken;
 
-    const map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: "mapContainer",
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [103.811279, 1.345399],
-      zoom: 8,
-      maxBounds: [
-        [103.6, 1.1704753],
-        [104.1, 1.4754753],
-      ],
+      center: [9.082, 8.6753],
+      zoom: 4,
+      // maxBounds: [
+      //   [103.6, 1.1704753],
+      //   [104.1, 1.4754753],
+      // ],
     });
     const nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, "top-right");
-    // const marker = new mapboxgl.Marker()
-    //   .setLngLat([103.811279, 1.345399], [103.811229, 1.345399])
-    //   .addTo(map);
-
-    this.results.forEach((r) => {
-      new mapboxgl.Marker().setLngLat(r.location.coordinates).addTo(map);
-    });
+    this.map.addControl(nav, "top-right");
+    const marker = new mapboxgl.Marker()
+      .setLngLat([9.082, 8.6753])
+      .addTo(this.map);
 
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -53,6 +57,15 @@ export default {
     });
 
     // map.addControl(geolocate, "top-right");
+  },
+  methods: {
+    setMarkers() {
+      this.results.forEach((r) => {
+        let m = new mapboxgl.Marker()
+          .setLngLat(r.location.coordinates)
+          .addTo(this.map);
+      });
+    },
   },
 };
 </script>
