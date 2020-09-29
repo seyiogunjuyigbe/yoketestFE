@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar">
-    <!-- <h3 class="lead text-left">Covid Dashboard</h3> -->
     <div class="container text-left">
       <h3>COVID-19 Online Assessment Tracker</h3>
       <p class="">Reported:</p>
@@ -85,9 +84,9 @@
         <button
           type="submit"
           :disabled="searchBtn"
-          class="btn btn-sm btn-primary"
+          class="btn btn-sm btn-danger"
         >
-          Search
+          Search >>
         </button>
       </form>
     </div>
@@ -176,3 +175,23 @@ export default {
   },
 };
 </script>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.sidebar {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8em;
+  border-right: 1px solid #f3f3f3;
+}
+form{
+  width: 90%;
+  margin-right: 0;
+}
+label{
+  text-overflow: clip;
+}
+.btn-danger{
+  padding: 1em 4em;
+  background-color: red !important;
+}
+</style>

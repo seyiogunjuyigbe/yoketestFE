@@ -28,7 +28,7 @@ export default {
     const map = new mapboxgl.Map({
       container: "mapContainer",
       style: "mapbox://styles/mapbox/streets-v11",
-      center: this.results[0].location.coordinates,
+      center: [103.811279, 1.345399],
       zoom: 8,
       maxBounds: [
         [103.6, 1.1704753],
