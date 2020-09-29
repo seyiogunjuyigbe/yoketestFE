@@ -1,2 +1,2 @@
-Live Dashoard: https://yoketest-fe.vercel.app/#/
+Live Dashboard: https://yoketest-fe.vercel.app/#/
 
