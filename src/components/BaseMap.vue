@@ -53,13 +53,11 @@ export default {
       container: "mapContainer",
       style: "mapbox://styles/mapbox/streets-v11",
       center: [9.082, 8.6753],
-      zoom: 8,
+      zoom: 10,
     });
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
-    const marker = new mapboxgl.Marker()
-      .setLngLat([9.082, 8.6753])
-      .addTo(this.map);
+    console.log(this.map);
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true,
