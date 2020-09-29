@@ -41,12 +41,9 @@ export default {
     //   .setLngLat([103.811279, 1.345399], [103.811229, 1.345399])
     //   .addTo(map);
 
-      this.results.forEach(r => {
-        
-        new mapboxgl.Marker()
-      .setLngLat(r.location.coordinates);
-      .addTo(map);
-      })
+    this.results.forEach((r) => {
+      new mapboxgl.Marker().setLngLat(r.location.coordinates).addTo(map);
+    });
 
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
