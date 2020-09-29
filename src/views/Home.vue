@@ -23,3 +23,12 @@ export default {
   },
 };
 </script>
+<style>
+#nav {
+  padding: 0;
+}
+* {
+  max-height: 100%;
+  max-width: 100%;
+}
+</style>

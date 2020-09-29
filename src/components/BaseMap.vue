@@ -1,11 +1,22 @@
 <template>
-  <div id="mapContainer" class="basemap"></div>
+  <div id="mapDiv">
+    <div id="mapContainer" class="basemap"></div>
+    <div id="modal" class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import mapboxgl from "mapbox-gl";
 import { mapGetters } from "vuex";
-
+import jquery from "jquery";
 export default {
   name: "BaseMap",
   data() {
@@ -21,13 +32,18 @@ export default {
   computed: {
     ...mapGetters({
       results: "getSearchResults",
+      loadingMap: "getLoadingMap",
     }),
   },
   watch: {
     results(oldvalue, newValue) {
       if (oldvalue !== newValue) {
-        this.setMarkers();
+        this.setMarkers(this.removeModal);
       }
+    },
+    loadingMap(oldV, newV) {
+      console.log(newV);
+      if (newV === false) jquery("#modal").modal("show");
     },
   },
   mounted() {
@@ -37,18 +53,13 @@ export default {
       container: "mapContainer",
       style: "mapbox://styles/mapbox/streets-v11",
       center: [9.082, 8.6753],
-      zoom: 4,
-      // maxBounds: [
-      //   [103.6, 1.1704753],
-      //   [104.1, 1.4754753],
-      // ],
+      zoom: 8,
     });
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
     const marker = new mapboxgl.Marker()
       .setLngLat([9.082, 8.6753])
       .addTo(this.map);
-
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true,
@@ -56,15 +67,21 @@ export default {
       trackUserLocation: true,
     });
 
-    // map.addControl(geolocate, "top-right");
+    this.map.addControl(geolocate, "top-right");
+    jquery("#modal").modal("hide");
   },
   methods: {
-    setMarkers() {
+    setMarkers(cb) {
       this.results.forEach((r) => {
         let m = new mapboxgl.Marker()
           .setLngLat(r.location.coordinates)
           .addTo(this.map);
       });
+      cb();
+    },
+    removeModal() {
+      console.log("hiding");
+      jquery("#modal").modal("hide");
     },
   },
 };
@@ -73,5 +90,13 @@ export default {
 .basemap {
   width: 100%;
   height: 100%;
+}
+#mapDiv {
+  height: 100%;
+  width: 100%;
+}
+#modal {
+  height: 80%;
+  width: 80%;
 }
 </style>

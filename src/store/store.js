@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     symptoms: [],
     searchResults: [],
-    loadingSymptoms: true
+    loadingSymptoms: true,
+    loadingMap: false
   },
   mutations: {
     GET_SYMPTOMS(state, data) {
@@ -16,7 +17,8 @@ export default new Vuex.Store({
       state.loadingSymptoms = false
     },
     GET_SEARCH_RESULTS(state, data) {
-      state.searchResults = data
+      state.searchResults = data;
+      state.loadingMap = false
     },
   },
   actions: {
@@ -31,7 +33,8 @@ export default new Vuex.Store({
         console.log(err);
       }
     },
-    async fetchSearchResults({ commit }, appData) {
+    async fetchSearchResults({ commit, state }, appData) {
+      state.loadingMap = true;
       const url = `https://yoketest.herokuapp.com/api/requests`
       try {
         const response = await axios.get(url, { params: appData });
@@ -52,6 +55,9 @@ export default new Vuex.Store({
     },
     getLoadingSymptoms: (state) => {
       return state.loadingSymptoms
+    },
+    getLoadingMap: (state) => {
+      return state.loadingMap
     }
   },
   modules: {

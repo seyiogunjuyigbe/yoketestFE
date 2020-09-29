@@ -190,6 +190,9 @@ export default {
   font-family: "Montserrat", sans-serif;
   font-size: 0.8em;
   border-right: 1px solid #f3f3f3;
+  background-color: #000;
+  padding: 3em;
+  color: #fff !important;
 }
 form {
   width: 90%;
