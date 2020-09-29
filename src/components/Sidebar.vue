@@ -121,11 +121,6 @@ export default {
   mounted() {
     this.$store.dispatch("getSymptoms");
   },
-  //   watch: {
-  //     searchBtn(old, newV) {
-  //       console.log(old, newV);
-  //     },
-  //   },
   computed: {
     ...mapGetters({
       symptoms: "getSymptoms",

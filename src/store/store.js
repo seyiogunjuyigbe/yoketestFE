@@ -27,7 +27,6 @@ export default new Vuex.Store({
       state.loadingSymptoms = true
       try {
         const response = await axios.get(url);
-        console.log(response.data.data);
         commit('GET_SYMPTOMS', response.data.data);
       } catch (err) {
         console.log(err);
@@ -40,7 +39,6 @@ export default new Vuex.Store({
         const response = await axios.get(url, { params: appData });
         let data = response.data.data.data
         commit("GET_SEARCH_RESULTS", data);
-        console.log({ response })
       } catch (err) {
         console.log({ err })
       }

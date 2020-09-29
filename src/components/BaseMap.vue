@@ -42,7 +42,6 @@ export default {
       }
     },
     loadingMap(oldV, newV) {
-      console.log(newV);
       if (newV === false) jquery("#modal").modal("show");
     },
   },
@@ -78,7 +77,6 @@ export default {
       cb();
     },
     removeModal() {
-      console.log("hiding");
       jquery("#modal").modal("hide");
     },
   },
