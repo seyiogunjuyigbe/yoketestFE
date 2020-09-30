@@ -110,7 +110,7 @@ export default {
     return {
       queryObject: {
         start: moment.utc().format("YYYY-MM-DD"),
-        end: moment.utc().add(1, "days").format("YYYY-MM-DD"),
+        end: moment.utc().endOf("day").format("YYYY-MM-DD"),
         symptoms: [],
       },
       calendars: false,
@@ -132,9 +132,9 @@ export default {
       if (
         moment(this.queryObject.start).isAfter(moment(this.queryObject.end)) ||
         moment(this.queryObject.start).isBefore(moment("2020-03-01")) ||
-        moment(this.queryObject.start).isAfter(moment()) ||
+        moment(this.queryObject.start).isAfter(moment().endOf("day")) ||
         moment(this.queryObject.end).isBefore(moment("2020-03-01")) ||
-        moment(this.queryObject.end).isAfter(moment())
+        moment(this.queryObject.end).isAfter(moment().endOf("day"))
       ) {
         alert(
           `Wrong Date Selection: Dates mut be between  March 1st 2020 and ${new Date().toDateString()}`
@@ -155,10 +155,7 @@ export default {
       switch (value) {
         case "today":
           this.queryObject.start = moment.utc().format("YYYY-MM-DD");
-          this.queryObject.end = moment
-            .utc()
-            .add(1, "days")
-            .format("YYYY-MM-DD");
+          this.queryObject.end = moment.utc().format("YYYY-MM-DD");
           this.clickedRange = "today";
           break;
 

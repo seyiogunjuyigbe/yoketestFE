@@ -1,7 +1,11 @@
 <template>
   <div id="mapDiv">
     <div id="mapContainer" class="basemap"></div>
-    <div id="modal" class="modal-dialog modal-dialog-centered">
+    <div
+      id="modal"
+      v-if="loadingMap"
+      class="modal-dialog modal-dialog-centered"
+    >
       <div class="modal-content">
         <div class="modal-body">
           <div class="spinner-border text-secondary" role="status">

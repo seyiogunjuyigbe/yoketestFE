@@ -27,8 +27,8 @@ export default {
 #nav {
   padding: 0;
 }
-* {
-  max-height: 100%;
+body {
+  max-height: 100vh;
   max-width: 100%;
 }
 </style>
